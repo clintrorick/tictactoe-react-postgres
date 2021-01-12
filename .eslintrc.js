@@ -4,17 +4,26 @@ module.exports = {
         es2021: true,
         jest: true
     },
+    plugins: [
+        'react'
+    ],
     extends: [
-        'standard'
+        'standard',
+        'plugin:react/recommended'
     ],
     parser: 'babel-eslint',
     parserOptions: {
         ecmaVersion: 12,
-        sourceType: 'module'
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true
+        }
     },
-    plugins: [
-        '@typescript-eslint'
-    ],
+    settings: {
+        react: {
+            version: 'detect'
+        }
+    },
     rules: {
         'no-undef': 'off',
         'block-spacing': [ 'warn', 'always' ],
@@ -26,7 +35,6 @@ module.exports = {
         } ],
         'object-curly-spacing': [ 'warn', 'always' ],
         'no-unused-vars': 'off',
-        '@typescript-eslint/no-unused-vars': [ 'warn' ],
         'max-len': [ 'warn', { code: 120 } ],
         'space-before-function-paren': [ 'warn', 'never' ],
         'operator-linebreak': [
@@ -35,7 +43,6 @@ module.exports = {
             { overrides: { '=': 'after' } }
         ],
         'no-useless-constructor': 'off',
-        '@typescript-eslint/no-useless-constructor': [ 'error' ],
         'max-depth': [ 'warn', { max: 2 } ],
         'multiline-ternary': [ 'warn', 'always-multiline' ],
         'array-element-newline': [ 'warn', 'consistent' ]
