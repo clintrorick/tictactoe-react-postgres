@@ -1,0 +1,107 @@
+/*svg stuff*/
+
+svg line {
+  fill: none;
+  stroke-width:16;
+  stroke-linecap:round; 
+  stroke:black;
+}
+
+svg circle {
+  fill:none;
+  stroke:black;
+  stroke-width:16; 
+}
+
+svg rect {
+  fill:black;
+  opacity:0.0
+}
+
+button {
+  font-size: 1.4rem;
+  height: 4.5rem;
+  line-height: 4.5rem;
+  width: 90%
+}
+
+
+.row {
+  display:flex; 
+  justify-content: space-between;
+  padding-bottom: 20px;
+}
+
+
+
+
+@media (max-width: 1100px) { 
+  svg {
+    width: 95%;
+  }
+  .col-middle {
+    width: 100%;
+    text-align:center;
+  }
+  .col-side {
+    width: 100%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
+
+  .row {
+    flex-direction:column; 
+  }
+
+
+}
+
+
+@media (min-width: 700px) and (max-width:1099px) { 
+  svg {
+    width: 65%;
+  }
+  .col-middle {
+    width: 100%;
+    text-align:center;
+  }
+  .col-side {
+    width: 100%;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: stretch;
+  }
+
+  .row {
+    flex-direction:column; 
+  }
+
+
+}
+
+
+@media (max-width: 9999px)  and (min-width: 1100px){ 
+  svg {
+    width: 60%;
+  }
+  .col-middle {
+    width: 60%;
+    text-align:center;
+  }
+  .col-side {
+    width: 20%;
+  }
+  .row {
+    flex-direction:row; 
+  }
+} 
+/*layout stuff*/
+
+
+
+
+
+
+
+
