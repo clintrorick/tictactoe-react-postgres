@@ -5,10 +5,12 @@ module.exports = {
         jest: true
     },
     plugins: [
-        'react'
+        'react',
+        'react-hooks'
     ],
     extends: [
         'standard',
+        'eslint:recommended',
         'plugin:react/recommended'
     ],
     parser: 'babel-eslint',
@@ -25,7 +27,7 @@ module.exports = {
         }
     },
     rules: {
-        'no-undef': 'off',
+        'no-undef': 'error',
         'block-spacing': [ 'warn', 'always' ],
         'array-bracket-spacing': [ 'warn', 'always' ],
         'space-in-parens': [ 'warn', 'always' ],
@@ -34,7 +36,7 @@ module.exports = {
             ignoredNodes: [ 'ConditionalExpression' ]
         } ],
         'object-curly-spacing': [ 'warn', 'always' ],
-        'no-unused-vars': 'off',
+        'no-unused-vars': 'error',
         'max-len': [ 'warn', { code: 120 } ],
         'space-before-function-paren': [ 'warn', 'never' ],
         'operator-linebreak': [
@@ -45,6 +47,8 @@ module.exports = {
         'no-useless-constructor': 'off',
         'max-depth': [ 'warn', { max: 2 } ],
         'multiline-ternary': [ 'warn', 'always-multiline' ],
-        'array-element-newline': [ 'warn', 'consistent' ]
+        'array-element-newline': [ 'warn', 'consistent' ],
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn'
     }
 }

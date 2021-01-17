@@ -6,10 +6,8 @@ const pgs = require( './postgres' )
 const postgres = require( './postgres-client' )
 const logger = require( 'morgan' )
 
-const indexRouter = require( './routes/index' )
-const usersRouter = require( './routes/users' )
-
 const app = express()
+app.set( 'port', process.env.PORT || 3100 )
 pgs.connect()
 const expressWs = require( 'express-ws' )( app )
 app.ws( '/socket', function( ws, req ) {
@@ -25,6 +23,8 @@ app.ws( '/socket', function( ws, req ) {
     } )
 
     pgs.subscriber.notifications.on( 'aaaabbbb', ( payload ) => {
+        // ws.send('5:1::{"name":"newimg", "args":"bla"}')
+
         ws.send( JSON.stringify( payload ) )
         console.log( "Received notification in 'aaaabbbb':", payload )
     } )
@@ -39,9 +39,6 @@ app.use( express.json() )
 app.use( express.urlencoded( { extended: false } ) )
 app.use( cookieParser() )
 app.use( express.static( path.join( __dirname, 'public' ) ) )
-
-app.use( '/', indexRouter )
-app.use( '/users', usersRouter )
 
 // catch 404 and forward to error handler
 app.use( function( req, res, next ) {

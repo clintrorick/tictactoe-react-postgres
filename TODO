@@ -1,0 +1,18 @@
+display grid without lobby info
+
+migrate from state to redux
+
+add cypress tests
+
+add explicit naughts vs crosses association when entering a game (host = naughts guest = crosses)
+
+add better security rules for who can access a particular game
+
+"it's your turn" push notifications
+
+shorten game auto id
+
+add analytics
+
+github workflow for build
+
