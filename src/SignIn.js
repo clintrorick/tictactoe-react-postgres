@@ -6,7 +6,7 @@ import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import App from './App'
 
 firebase.initializeApp( {
-    apiKey: 'AIzaSyCZfH6FqU7Cxt6dGpreFjsSGi2kyJRz5sc',
+    apiKey: '',
     authDomain: 'naughts-crosses-react.firebaseapp.com',
     projectId: 'naughts-crosses-react',
     storageBucket: 'naughts-crosses-react.appspot.com',
