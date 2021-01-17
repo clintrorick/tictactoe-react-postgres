@@ -6,6 +6,7 @@ import { Circle } from './Circle'
 import { React, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import { Link } from 'react-router-dom'
 // TODO introduce this and other types
 // class SquareState {
 //     constructor( x, y, mark ) {
@@ -171,7 +172,7 @@ function Game( props ) {
                         } )}
                     </svg>
                 </div>
-                <div className="col-side"></div>
+                <div className="col-side"><Link to="/" className="button">Back to Lobby</Link></div>
             </div>
         </div>
     )
