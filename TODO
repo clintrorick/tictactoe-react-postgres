@@ -1,3 +1,4 @@
+
 display grid without lobby info
 
 migrate from state to redux
@@ -16,3 +17,6 @@ add analytics
 
 github workflow for build
 
+DONE
+-----
+fix bug with x and o not going to proper square

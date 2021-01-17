@@ -44,7 +44,7 @@ function Game( props ) {
             const newGameState = []
             for ( const i in [ ...Array( 9 ).keys() ] ) { // javascript sucks
                 const [ x, y ] = convertGridVectorToGridCoordinate( i )
-                newGameState.push( { x: x, y: y, mark: '' + gameState[i] } )
+                newGameState.push( { x: x, y: y, mark: gameState[i] } )
             }
 
             updateAllSquaresState( newGameState )
@@ -76,9 +76,13 @@ function Game( props ) {
             const mark = gridStateArr.find(
                 ( square ) => square.x === x && square.y === y )
                 .mark
-            if ( !mark || mark === 'empty' ) { serializedGridState += 'e' }
-            if ( mark === 'cross' ) { serializedGridState += 'X' }
-            if ( mark === 'circle' ) { serializedGridState += 'O' }
+            if ( mark === 'cross' ) {
+                serializedGridState += 'X'
+            } else if ( mark === 'circle' ) {
+                serializedGridState += 'O'
+            } else {
+                serializedGridState += 'e'
+            }
         }
 
         return serializedGridState
