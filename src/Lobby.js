@@ -5,8 +5,7 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 
-import Game from './Game'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Lobby( props ) {
     // Lobby.propTypes = {
@@ -61,9 +60,6 @@ function Lobby( props ) {
                         <hr/>
                     </div> )
             }
-        </div>
-        <div>
-            <Route path="/games/:id" component={ Game } />
         </div>
     </div>
 }

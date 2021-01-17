@@ -1,7 +1,11 @@
 
-display grid without lobby info
+back to lobby button
+
+file structure cleanup/favicon/title
 
 migrate from state to redux
+
+fix flash of unstyled content with sign in page
 
 add cypress tests
 
@@ -13,6 +17,7 @@ add better security rules for who can access a particular game
 
 shorten game auto id
 
+
 add analytics
 
 github workflow for build
@@ -20,3 +25,4 @@ github workflow for build
 DONE
 -----
 fix bug with x and o not going to proper square
+display grid without lobby info

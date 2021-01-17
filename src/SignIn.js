@@ -3,7 +3,7 @@ import 'firebase/auth'
 import { auth } from 'firebaseui'
 import { React, useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import Lobby from './Lobby'
+import App from './App'
 
 firebase.initializeApp( {
     apiKey: 'AIzaSyCZfH6FqU7Cxt6dGpreFjsSGi2kyJRz5sc',
@@ -47,7 +47,7 @@ function SignIn( ) {
         )
     }
     return (
-        <Lobby></Lobby>
+        <App></App>
     )
 }
 
