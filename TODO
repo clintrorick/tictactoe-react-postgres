@@ -5,17 +5,24 @@ file structure cleanup/favicon/title
 
 migrate from state to redux
 
-add cypress tests
+setup local firebase emulator
 
-move api interactions to server
+add cypress tests
 
 add explicit naughts vs crosses association when entering a game (host = naughts guest = crosses)
 
-add better security rules for who can access a particular game
 
 "it's your turn" push notifications
 
 shorten game auto id
+
+copy invite link
+
+screen reader / accessibility
+
+delete hosted game
+
+highlight-and-fade-on-updates
 
 more intuitive place for "back to lobby" button
 
@@ -23,8 +30,12 @@ add analytics
 
 github workflow for build
 
+
+
 DONE
 -----
 fix bug with x and o not going to proper square
 display grid without lobby info
 back to lobby button
+add better security rules for who can access a particular game
+

@@ -4,16 +4,20 @@ import dayjs from 'dayjs'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-
-import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import relativeTime from 'dayjs/plugin/relativeTime'
 dayjs.extend( relativeTime )
 function Lobby( props ) {
-    // Lobby.propTypes = {
-    //     db: PropTypes.object
-    // }
+    Lobby.propTypes = {
+        history: PropTypes.object
+    }
     const [ games, updateGames ] = useState( [] )
-
+    function relativeTime( game ) {
+        const relativeTimeStr = dayjs.unix( game.created_ts.seconds ).fromNow()
+        return relativeTimeStr === 'in a few seconds' || relativeTimeStr === 'a few seconds ago'
+                                    ? 'just now'
+                                    : relativeTimeStr
+    }
     useEffect( () => {
         firebase.firestore().collection( 'games' )
             .orderBy( 'created_ts', 'desc' )
@@ -45,33 +49,41 @@ function Lobby( props ) {
     }
 
     return <div>
-        <div>
-            <button onClick={ () => createGame() }>Host New Game</button>
-            <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
+        <div className="container">
+            <div className="row row-center" ><h1>Naughts and Crosses</h1></div>
+
+        </div>
+        <div className="container">
+            <div className="row row-center" >
+                <button className="button-normal" onClick={ () => createGame() }>Host New Game</button>
+            </div>
         </div>
         <div className="container">
 
             {games.map( ( game ) =>
                 <div key={ game.id }>
                     <div className="container">
-
-                        <div className="row" >
-                            {/* <div className="column">{game.id}</div> */}
-                            <div className="column">{game.game_host_name ?? 'Unknown User'}</div>
-                            <div className="column">{dayjs.unix( game.created_ts.seconds ).fromNow()}</div>
-
+                        <div className="row row-center" >
+                            <div className="column"><strong>Host: </strong>{game.game_host_name ?? 'Unknown User'}</div>
+                            <div className="column"> { relativeTime( game ) } </div>
                         </div>
                     </div>
                     <div className="container">
-                        <div className="row" >
-                            <div className="column">
-                                <Link to={'/games/' + game.id}>Join Game</Link>
-                            </div>
+                        <div className="row row-center" >
+                            <button className="button-outline"
+                                onClick={() => { props.history.push( '/games/' + game.id ) }}>Join Game</button>
                         </div>
                     </div>
                 </div> )
             }
 
+        </div>
+        <div className="container">
+            <div className="row row-center" >
+                <div className="column column-50">
+                    <button className="button-cancel" onClick={() => firebase.auth().signOut()}>Sign Out</button>
+                </div>
+            </div>
         </div>
     </div>
 }

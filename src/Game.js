@@ -124,11 +124,11 @@ function Game( props ) {
         <div className="Game">
             <div className="row-layout">
                 <div className="col-side">
-                    <button className={activeMarkType === 'circle' ? '' : 'button-outline'}
+                    <button className={activeMarkType === 'circle' ? 'button-normal' : 'button-outline'}
                         onClick={() => { if ( activeMarkType === 'cross' ) { updateActiveMarkType( 'circle' ) } }}>
                           Circle Player</button>
 
-                    <button className={activeMarkType === 'cross' ? '' : 'button-outline'}
+                    <button className={activeMarkType === 'cross' ? 'button-normal' : 'button-outline'}
                         onClick={() => { if ( activeMarkType === 'circle' ) { updateActiveMarkType( 'cross' ) } }}>
                           Cross Player</button>
 
@@ -170,7 +170,7 @@ function Game( props ) {
                         } )}
                     </svg>
                 </div>
-                <div className="col-side"><Link to="/" className="button">Back to Lobby</Link></div>
+                <div className="col-side"><Link to="/" className="button button-cancel">Back to Lobby</Link></div>
             </div>
         </div>
     )

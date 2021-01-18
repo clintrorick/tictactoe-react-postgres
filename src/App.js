@@ -5,9 +5,7 @@ import Game from './Game'
 
 function App( props ) {
     return <Switch>
-        <Route exact path="/">
-            <Lobby></Lobby>
-        </Route>
+        <Route exact path="/" render={ props => <Lobby {...props} /> }/>
         <Route path="/games/:id"
             render={ props => <Game {...props} /> }/>
         {/* ^^^ necessary shenanigans for passing router params as props... */}
