@@ -6,7 +6,8 @@ import 'firebase/auth'
 import 'firebase/firestore'
 
 import { Link } from 'react-router-dom'
-
+import relativeTime from 'dayjs/plugin/relativeTime'
+dayjs.extend( relativeTime )
 function Lobby( props ) {
     // Lobby.propTypes = {
     //     db: PropTypes.object
@@ -20,7 +21,6 @@ function Lobby( props ) {
                 const gameObjs = querySnapshot.docs
                     .map( ( doc ) => {
                         console.log( doc.data() )
-
                         return Object.assign( { id: doc.id }, doc.data() )
                     } )
                     .filter( ( doc ) =>
@@ -34,7 +34,7 @@ function Lobby( props ) {
     const createGame = () => {
         const gameHost = firebase.auth().currentUser.uid
         const gameHostName = firebase.auth().currentUser.displayName
-                            ?? 'Anonymous User ' + firebase.auth().currentUser.uid.substr( 0, 4 )
+                            ?? 'User ' + firebase.auth().currentUser.uid.substr( 0, 4 )
         firebase.firestore().collection( 'games' )
             .add( {
                 game_host: gameHost,
@@ -49,17 +49,29 @@ function Lobby( props ) {
             <button onClick={ () => createGame() }>Host New Game</button>
             <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
         </div>
-        <div>
-            {
-                games.map( ( game ) =>
-                    <div key={ game.id }>
-                        <div>Game ID: {game.id}</div>
-                        <div>Host: {game.game_host_name ?? 'Unknown User'}</div>
-                        <div>Created At: {dayjs.unix( game.created_ts.seconds ).format()}</div>
-                        <Link to={'/games/' + game.id}>Join Game</Link>
-                        <hr/>
-                    </div> )
+        <div className="container">
+
+            {games.map( ( game ) =>
+                <div key={ game.id }>
+                    <div className="container">
+
+                        <div className="row" >
+                            {/* <div className="column">{game.id}</div> */}
+                            <div className="column">{game.game_host_name ?? 'Unknown User'}</div>
+                            <div className="column">{dayjs.unix( game.created_ts.seconds ).fromNow()}</div>
+
+                        </div>
+                    </div>
+                    <div className="container">
+                        <div className="row" >
+                            <div className="column">
+                                <Link to={'/games/' + game.id}>Join Game</Link>
+                            </div>
+                        </div>
+                    </div>
+                </div> )
             }
+
         </div>
     </div>
 }

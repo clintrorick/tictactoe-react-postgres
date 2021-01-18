@@ -4,16 +4,6 @@ import { auth } from 'firebaseui'
 import { React, useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import App from './App'
-
-firebase.initializeApp( {
-    apiKey: '',
-    authDomain: 'naughts-crosses-react.firebaseapp.com',
-    projectId: 'naughts-crosses-react',
-    storageBucket: 'naughts-crosses-react.appspot.com',
-    messagingSenderId: '806201065463',
-    appId: '1:806201065463:web:b5fd72168a2c49e13d78f2',
-    measurementId: 'G-D3Z1SLCYWS'
-} )
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
@@ -33,6 +23,8 @@ function SignIn( ) {
     // Listen to the Firebase Auth state and set the local state.
     useEffect( () => {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged( user => {
+            // TODO - set cool random name here for the anonymous user
+
             setIsSignedIn( !!user )
         } )
         return () => unregisterAuthObserver()

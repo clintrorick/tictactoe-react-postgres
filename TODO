@@ -1,3 +1,4 @@
+Uncaught Error in snapshot listener: FirebaseError: Missing or insufficient permissions.
 
 
 file structure cleanup/favicon/title
@@ -5,6 +6,8 @@ file structure cleanup/favicon/title
 migrate from state to redux
 
 add cypress tests
+
+move api interactions to server
 
 add explicit naughts vs crosses association when entering a game (host = naughts guest = crosses)
 

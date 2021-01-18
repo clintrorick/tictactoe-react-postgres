@@ -1,9 +1,39 @@
 rules_version = '2';
 service cloud.firestore {
+
+ 
+
   match /databases/{database}/documents {
+    //deny-all: rules evaluated top to bottom by firebase
     match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 2, 12);
+      allow read, write: if false;
+    }    
+    
+    match /games/{game} {
+      //anyone can create a game or see the status of other games
+      allow get, list, create: if request.auth.uid != null
+
+      //only game hosts can delete a game
+      allow update, delete: if resource.data.game_host == request.auth.uid;
+
+      function getGame(){
+          return get(/databases/$(database)/documents/games/$(game)).data;
+        }
+
+      match /gamestates/{gamestate} {
+             
+        allow get,list: if request.auth.uid != null
+
+        //only game hosts or game passengers can write to a given game's gamestate
+        allow create: if getGame().game_host == request.auth.uid || getGame().game_passenger == request.auth.uid;
+
+        // gamestate entries are immutable
+        allow delete, update: if false;
+      }
     }
+
+    
   }
+
+  
 }

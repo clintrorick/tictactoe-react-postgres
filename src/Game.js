@@ -26,7 +26,6 @@ function Game( props ) {
             .limit( 1 )
             .onSnapshot( ( querySnapshot ) => {
                 if ( querySnapshot.docs.length === 1 ) {
-                    console.log( querySnapshot.docs[0].data() )
                     // ignore notifications without a created_ts - serverTimestamp() update will fire immediately after
                     if ( querySnapshot.docs[0].data().created_ts !== null ) {
                         handleGameStateUpdateFromServer(
@@ -64,7 +63,6 @@ function Game( props ) {
             case 'X' : return 'cross'
             case 'O' : return 'circle'
             }
-            console.log()
             throw Error( 'An error occurred.  We\'re on it. CODE 6X7' )
         } )
     }
@@ -124,7 +122,7 @@ function Game( props ) {
 
     return (
         <div className="Game">
-            <div className="row">
+            <div className="row-layout">
                 <div className="col-side">
                     <button className={activeMarkType === 'circle' ? '' : 'button-outline'}
                         onClick={() => { if ( activeMarkType === 'cross' ) { updateActiveMarkType( 'circle' ) } }}>

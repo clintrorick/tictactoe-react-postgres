@@ -26,7 +26,7 @@ button {
 }
 
 
-.row {
+.row-layout {
   display:flex; 
   justify-content: space-between;
   padding-bottom: 20px;
@@ -50,7 +50,7 @@ button {
     align-items: stretch;
   }
 
-  .row {
+  .row-layout {
     flex-direction:column; 
   }
 
@@ -73,11 +73,9 @@ button {
     align-items: stretch;
   }
 
-  .row {
+  .row-layout {
     flex-direction:column; 
   }
-
-
 }
 
 
@@ -92,7 +90,7 @@ button {
   .col-side {
     width: 20%;
   }
-  .row {
+  .row-layout {
     flex-direction:row; 
   }
 } 
