@@ -1,5 +1,15 @@
 /*svg stuff*/
 
+html, body {
+  height: 100vh;
+  margin: 0;
+}
+.firebaseui-card-content, .firebaseui-idp-list, .firebaseui-card-content,  #firebaseui_container, .firebaseui-container, form, #root, .firebaseui-root{
+  height: 100%;
+  margin: 0;
+}
+
+
 svg line {
   fill: none;
   stroke-width:16;
@@ -85,8 +95,53 @@ h1 {
 /* Larger than desktop screen */
 @media (min-width: 120.0rem) { }
 
-/* TODO switch to rem queries uniformly */
+/* FIREBASE UI */
+.firebaseui-idp-button,
+.mdl-button,
+.mdl-js-button,
+.mdl-button--raised,
+.firebaseui-idp-google,
+.firebaseui-id-idp-button {
+max-width: unset !important;
+min-width: unset !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+}
 
+.firebaseui-idp-button {
+  font-size: 5rem !important;
+}
+
+.firebaseui-container {
+max-width: 90% !important;
+}
+
+.firebaseui-idp-list {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  
+}
+
+.firebaseui-idp-text,
+.firebaseui-idp-text-long,
+.firebaseui-idp-text-short {
+font-size: 2rem !important;
+}
+
+.firebaseui-idp-icon {
+height: 2rem !important;
+width: 2rem !important;
+}
+
+.firebaseui-tos,
+.firebaseui-tospp-full-message {
+font-size: 1.5vmin !important;
+}
+/* END FIREBASE UI */
+
+/* TODO switch to rem queries uniformly */
 @media (max-width: 1100px) { 
   svg {
     width: 95%;
@@ -107,6 +162,8 @@ h1 {
     flex-direction:column; 
   }
 }
+
+
 
 /* TODO switch to rem queries uniformly */
 @media (min-width: 700px) and (max-width:1099px) { 

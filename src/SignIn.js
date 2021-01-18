@@ -33,7 +33,7 @@ function SignIn( ) {
 
     if ( !isSignedIn ) {
         return (
-            <div>
+            <div className="firebaseui-root">
                 <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
             </div>
         )

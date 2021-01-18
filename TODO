@@ -1,7 +1,10 @@
-Uncaught Error in snapshot listener: FirebaseError: Missing or insufficient permissions.
 
+enlarge buttons on sign-in
 
 file structure cleanup/favicon/title
+
+when signing out: Uncaught Error in snapshot listener: FirebaseError: Missing or insufficient permissions.
+
 
 migrate from state to redux
 
