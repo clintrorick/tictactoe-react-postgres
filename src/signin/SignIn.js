@@ -3,7 +3,7 @@ import 'firebase/auth'
 import { auth } from 'firebaseui'
 import { React, useState, useEffect } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import App from './App'
+import App from '../AppRouter'
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',

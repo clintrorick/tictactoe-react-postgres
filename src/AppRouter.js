@@ -1,9 +1,9 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import Lobby from './Lobby'
-import Game from './Game'
+import Lobby from './lobby/Lobby'
+import Game from './game/Game'
 
-function App( props ) {
+function AppRouter( props ) {
     return <Switch>
         <Route exact path="/" render={ props => <Lobby {...props} /> }/>
         <Route path="/games/:id"
@@ -12,4 +12,4 @@ function App( props ) {
     </Switch>
 }
 
-export default App
+export default AppRouter

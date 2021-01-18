@@ -114,7 +114,7 @@ justify-content: center !important;
 }
 
 .firebaseui-container {
-max-width: 90% !important;
+  max-width: 90% !important;
 }
 
 .firebaseui-idp-list {
@@ -133,11 +133,6 @@ font-size: 2rem !important;
 .firebaseui-idp-icon {
 height: 2rem !important;
 width: 2rem !important;
-}
-
-.firebaseui-tos,
-.firebaseui-tospp-full-message {
-font-size: 1.5vmin !important;
 }
 /* END FIREBASE UI */
 

@@ -1,5 +1,4 @@
 
-enlarge buttons on sign-in
 
 file structure cleanup/favicon/title
 
@@ -14,14 +13,13 @@ add cypress tests
 
 add explicit naughts vs crosses association when entering a game (host = naughts guest = crosses)
 
-
 "it's your turn" push notifications
 
 shorten game auto id
 
 copy invite link
 
-screen reader / accessibility
+screen reader / accessibility test
 
 delete hosted game
 
@@ -41,4 +39,6 @@ fix bug with x and o not going to proper square
 display grid without lobby info
 back to lobby button
 add better security rules for who can access a particular game
+enlarge buttons on sign-in
+
 

@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import reportWebVitals from './reportWebVitals'
-import SignIn from './SignIn'
+import SignIn from './signin/SignIn'
 import { BrowserRouter } from 'react-router-dom'
 import firebase from 'firebase/app'
 ( async function() {

@@ -12,12 +12,14 @@ function Lobby( props ) {
         history: PropTypes.object
     }
     const [ games, updateGames ] = useState( [] )
+
     function relativeTime( game ) {
         const relativeTimeStr = dayjs.unix( game.created_ts.seconds ).fromNow()
         return relativeTimeStr === 'in a few seconds' || relativeTimeStr === 'a few seconds ago'
                                     ? 'just now'
                                     : relativeTimeStr
     }
+
     useEffect( () => {
         firebase.firestore().collection( 'games' )
             .orderBy( 'created_ts', 'desc' )
