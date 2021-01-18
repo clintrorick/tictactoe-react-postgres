@@ -1,0 +1,47 @@
+
+
+.newgamepopuplobby-enter {
+    background-color:#eb9634
+}
+
+.newgamepopuplobby-enter-active {
+    background-color:#ffffff;
+    transition: background-color 1s ease
+}
+
+.game-container {
+    border-radius:1rem;
+}
+.challenger {
+    margin-left:1rem;
+}
+
+.column-players {
+    display: flex !important;
+    flex-direction: column;
+}
+@media (max-width: 40.0rem) {  
+    .button-leave{
+        width:50%
+    }
+    .row-bottom {
+        flex-direction:column;
+        margin-bottom: 3rem;
+        padding-right: 2rem !important;
+    }
+}
+@media (min-width: 40.01rem)
+{
+    .button-leave {
+        justify-self: end;
+        width:20%;
+        font-size: 1rem;
+
+    }
+    .row-bottom {
+        flex-direction:column;
+        margin-bottom: 3rem;
+        padding-right: 5rem !important;
+    }
+}
+

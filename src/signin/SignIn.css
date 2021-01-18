@@ -1,0 +1,50 @@
+/* FIREBASE UI */
+html, body {
+    height: 100vh;
+    margin: 0;
+  }
+
+.firebaseui-card-content, .firebaseui-idp-list, .firebaseui-card-content,  #firebaseui_container, .firebaseui-container, form, #root, .firebaseui-root{
+height: 100%;
+margin: 0;
+}
+
+.firebaseui-idp-button,
+.mdl-button,
+.mdl-js-button,
+.mdl-button--raised,
+.firebaseui-idp-google,
+.firebaseui-id-idp-button {
+max-width: unset !important;
+min-width: unset !important;
+display: flex !important;
+align-items: center !important;
+justify-content: center !important;
+}
+
+.firebaseui-idp-button {
+  font-size: 10rem !important;
+}
+
+.firebaseui-container {
+  max-width: 90% !important;
+}
+
+.firebaseui-idp-list {
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  
+}
+
+.firebaseui-idp-text,
+.firebaseui-idp-text-long,
+.firebaseui-idp-text-short {
+font-size: 2rem !important;
+}
+
+.firebaseui-idp-icon {
+height: 5rem !important;
+width: 5rem !important;
+}
+/* END FIREBASE UI */

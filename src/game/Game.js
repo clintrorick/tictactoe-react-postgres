@@ -1,4 +1,3 @@
-import './Game.css'
 import { RectClickable } from './RectClickable'
 import PropTypes from 'prop-types'
 import { Cross } from './Cross'
@@ -7,6 +6,7 @@ import { React, useState, useEffect } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { Link } from 'react-router-dom'
+import Header from '../header/Header'
 // TODO introduce this and other types
 // class SquareState {
 //     constructor( x, y, mark ) {
@@ -122,6 +122,8 @@ function Game( props ) {
 
     return (
         <div className="Game">
+            <Header/>
+
             <div className="row-layout">
                 <div className="col-side">
                     <button className={activeMarkType === 'circle' ? 'button-normal' : 'button-outline'}

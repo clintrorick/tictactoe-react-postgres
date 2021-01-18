@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Monofett';
+    src: url(../fonts/Monofett-Regular.ttf) ;
+  }
+  
+h1 {
+    font-family: 'Monofett';
+    font-size: 3.2rem;
+}
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) { 
+    h1{
+      font-size: 4.6rem;
+    }
+   }

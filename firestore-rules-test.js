@@ -21,7 +21,7 @@ const RANDO_USER_AUTH = { uid: 'rando' }
 const DEFAULT_GAME_OBJECT = {
     game_host: 'clint',
     game_host_name: 'clint rorick',
-    game_passenger: null,
+    challenger: null,
     created_ts: firebase.firestore.FieldValue.serverTimestamp()
 }
 
@@ -60,7 +60,7 @@ test( 'SHOULD NOT successfully create game for user with no auth', async functio
     assert.fail()
 } )
 
-test( 'SHOULD NOT be able to modify gamestate if user is not host or passenger of game', async function() {
+test( 'SHOULD NOT be able to modify gamestate if user is not host or challenger of game', async function() {
     const createdGame = await firestoreWithAuth( RANDO_USER_AUTH )
         .collection( 'games' )
         .add( DEFAULT_GAME_OBJECT )
@@ -76,7 +76,7 @@ test( 'SHOULD NOT be able to modify gamestate if user is not host or passenger o
     assert.fail()
 } )
 
-test( 'SHOULD be able to modify gamestate if user is host or passenger of game', async function() {
+test( 'SHOULD be able to modify gamestate if user is host or challenger of game', async function() {
     const createdGame = await firestoreWithAuth( RANDO_USER_AUTH )
         .collection( 'games' )
         .add( Object.assign( DEFAULT_GAME_OBJECT, { game_host: 'rando' } ) )

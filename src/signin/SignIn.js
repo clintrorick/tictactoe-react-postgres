@@ -1,9 +1,11 @@
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { auth } from 'firebaseui'
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect, useLayoutEffect, useRef } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
-import App from '../AppRouter'
+import './SignIn.css'
+import Header from '../header/Header'
+import { Redirect } from 'react-router'
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
     signInFlow: 'popup',
@@ -17,9 +19,17 @@ const uiConfig = {
         signInSuccessWithAuthResult: () => false
     }
 }
-function SignIn( ) {
+function SignIn( props ) {
+    const mainDiv = useRef( null )
     const [ isSignedIn, setIsSignedIn ] = useState( false ) // Local signed-in state.
 
+    // restore scroll and keyboard focus when kicking back to signout
+    useLayoutEffect( () => {
+        if ( mainDiv.current ) {
+            mainDiv.current.focus()
+            window.scroll( 0, 0 )
+        }
+    }, [ isSignedIn ] )
     // Listen to the Firebase Auth state and set the local state.
     useEffect( () => {
         const unregisterAuthObserver = firebase.auth().onAuthStateChanged( user => {
@@ -33,14 +43,14 @@ function SignIn( ) {
 
     if ( !isSignedIn ) {
         return (
-            <div className="firebaseui-root">
+            <div ref={mainDiv} className="firebaseui-root">
+                <Header/>
                 <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
             </div>
         )
+    } else {
+        return <Redirect to='/'></Redirect>
     }
-    return (
-        <App></App>
-    )
 }
 
 export default SignIn

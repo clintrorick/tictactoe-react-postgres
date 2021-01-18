@@ -12,9 +12,9 @@ service cloud.firestore {
     match /games/{game} {
       //anyone can create a game or see the status of other games
       allow get, list, create: if request.auth.uid != null
-
+      allow update: if resource.data.game_host == request.auth.uid || resource.data.challenger == request.auth.uid || resource.data.challenger == null
       //only game hosts can delete a game
-      allow update, delete: if resource.data.game_host == request.auth.uid;
+      allow delete: if resource.data.game_host == request.auth.uid;
 
       function getGame(){
           return get(/databases/$(database)/documents/games/$(game)).data;
@@ -24,8 +24,8 @@ service cloud.firestore {
              
         allow get,list: if request.auth.uid != null
 
-        //only game hosts or game passengers can write to a given game's gamestate
-        allow create: if getGame().game_host == request.auth.uid || getGame().game_passenger == request.auth.uid;
+        //only game hosts or game challengers can write to a given game's gamestate
+        allow create: if getGame().game_host == request.auth.uid || getGame().challenger == request.auth.uid;
 
         // gamestate entries are immutable
         allow delete, update: if false;

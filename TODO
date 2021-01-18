@@ -1,5 +1,5 @@
 
-
+handle scroll/keyboard restoration for mobile usability/accessiblility
 file structure cleanup/favicon/title
 
 when signing out: Uncaught Error in snapshot listener: FirebaseError: Missing or insufficient permissions.
