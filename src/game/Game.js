@@ -63,27 +63,29 @@ function Game( props ) {
                 }
             } )
 
-        thisGameDocRef
+        const unsubGameUpdates = thisGameDocRef
             .onSnapshot( ( docSnapshot ) => {
-                updateActivePlayer( docSnapshot.data().activePlayer )
+                updateActivePlayer( docSnapshot.data().activePlayer ?? null )
             } )
 
-        thisGameDocRef.collection( '/gamestates' )
-            .orderBy( 'created_ts', 'desc' )
-            .limit( 1 )
-            .onSnapshot( ( querySnapshot ) => {
-                if ( querySnapshot.docs.length === 1 ) {
-                    const gamestateDoc = querySnapshot.docs[0].data()
-                    // ignore notifications without a created_ts - serverTimestamp() update will fire immediately after
-                    if ( gamestateDoc.created_ts !== null ) {
-                        handleGameStateUpdateFromServer(
-                            deserializeGridState( gamestateDoc.gridstate )
-                        )
+        const unsubGamestateUpdates =
+            thisGameDocRef.collection( '/gamestates' )
+                .orderBy( 'created_ts', 'desc' )
+                .limit( 1 )
+                .onSnapshot( ( querySnapshot ) => {
+                    if ( querySnapshot.docs.length === 1 ) {
+                        const gamestateDoc = querySnapshot.docs[0].data()
+                        /* ignore notifications without a created_ts
+                         serverTimestamp() update will fire immediately after */
+                        if ( gamestateDoc.created_ts !== null ) {
+                            handleGameStateUpdateFromServer(
+                                deserializeGridState( gamestateDoc.gridstate )
+                            )
+                        }
+                    } else {
+                        handleGameStateUpdateFromServer( Array( 9 ).fill( 'e' ) )
                     }
-                } else {
-                    handleGameStateUpdateFromServer( Array( 9 ).fill( 'e' ) )
-                }
-            } )
+                } )
 
         function handleGameStateUpdateFromServer( gameState ) {
             // naive for now, no timing or sequence checks
@@ -95,6 +97,11 @@ function Game( props ) {
             }
 
             updateAllSquaresState( newGameState )
+        }
+
+        return function cleanup() {
+            unsubGameUpdates()
+            unsubGamestateUpdates()
         }
     }, [ thisGameDocRef, currentUser.uid ]
     )// we don't care about re-running this effect if props.db changes - it won't

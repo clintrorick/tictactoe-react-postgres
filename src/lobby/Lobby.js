@@ -10,14 +10,16 @@ import LoggedInUser from '../header/LoggedInUser'
 import './Lobby.css'
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
 import Title from 'header/Title'
+import { v4 as uuidV4 } from 'uuid'
 
 dayjs.extend( relativeTime )
 function Lobby( props ) {
     Lobby.propTypes = {
         history: PropTypes.object
     }
+    const [ gamesDbRef ] = useState( firebase.firestore().collection( 'games' ) )
     const [ games, updateGames ] = useState( [] )
-
+    const [ currentUser ] = useState( firebase.auth().currentUser )
     function relativeTime( game ) {
         const relativeTimeStr = dayjs.unix( game.created_ts.seconds ).fromNow()
         return relativeTimeStr === 'in a few seconds' || relativeTimeStr === 'a few seconds ago'
@@ -26,7 +28,7 @@ function Lobby( props ) {
     }
 
     function amIinThisGame( game ) {
-        const currUid = firebase.auth().currentUser.uid
+        const currUid = currentUser.uid
         return game.game_host === currUid
             || game.challenger === currUid
     }
@@ -36,26 +38,30 @@ function Lobby( props ) {
             && game.challenger !== null
     }
 
-    async function leaveGame() {
-
+    async function leaveGame( game ) {
+        if ( game.game_host === currentUser.uid ) {
+            gamesDbRef
+                .doc( game.id )
+                .delete()
+        } else if ( game.challenger === currentUser.uid ) {
+            gamesDbRef
+                .doc( game.id )
+                .update( { challenger: null, challenger_name: null } )
+        }
     }
 
     async function joinGame( game ) {
-        const currentUser = firebase.auth().currentUser
         try {
             if ( game.game_host !== currentUser.uid ) {
-                await firebase.firestore().collection( 'games' )
+                await gamesDbRef
                     .doc( game.id )
-                    .set(
+                    .update(
                         {
                             challenger: currentUser.uid,
                             // anonymous users don't have display names
                             challenger_name: currentUser.isAnonymous
-                        ? currentUser.uid.substr( 0, 4 )
-                        : currentUser.displayName
-                        },
-                        {
-                            merge: true
+                            ? currentUser.uid.substr( 0, 4 )
+                            : currentUser.displayName
                         }
                     )
             }
@@ -66,39 +72,44 @@ function Lobby( props ) {
     }
 
     useEffect( () => {
-        firebase.firestore().collection( 'games' )
+        const unsubGamesDbRef = gamesDbRef
             .orderBy( 'created_ts', 'desc' )
             .onSnapshot( ( querySnapshot ) => {
                 // ignore updates from ourselves to ourselves - wait on the server to validate the update based on rules
-                if ( querySnapshot.metadata.hasPendingWrites === false ) {
-                    const gameObjs = querySnapshot.docs
-                        .map( ( doc ) => {
-                            console.log( doc.data() )
-                            return Object.assign( { id: doc.id }, doc.data() )
-                        } )
-                        .filter( ( game ) =>
-                            game.created_ts !== null
-                        ).sort( ( game1, game2 ) => {
-                            if ( amIinThisGame( game1 ) && amIinThisGame( game2 ) ) {
-                                return game1.created_ts > game2.created_ts ? -1 : 1
-                            } else {
-                                return amIinThisGame( game1 ) ? -1 : 1
-                            }
+                // currently disabled - see TECHDEBT.md
+                // if ( querySnapshot.metadata.hasPendingWrites === false ) {
+                const gameObjs = querySnapshot.docs
+                    .map( ( doc ) => {
+                        return Object.assign( { id: doc.id }, doc.data() )
+                    } )
+                    .filter( ( game ) =>
+                        game.created_ts !== null
+                    ).sort( ( game1, game2 ) => {
+                        if ( amIinThisGame( game1 ) && amIinThisGame( game2 ) ) {
+                            return game1.created_ts > game2.created_ts ? -1 : 1
+                        } else {
+                            return amIinThisGame( game1 ) ? -1 : 1
                         }
-                            // if in both games, check created_ts
-                        )
+                    }
+                        // if in both games, check created_ts
+                    )
 
-                    updateGames( gameObjs )
-                }
+                updateGames( gameObjs )
+                //   }
             } )
+
+        return function cleanup() {
+            unsubGamesDbRef()
+        }
     }, [ ] )
 
     const createGame = () => {
-        const gameHost = firebase.auth().currentUser.uid
-        const gameHostName = firebase.auth().currentUser.displayName
-                            ?? 'User ' + firebase.auth().currentUser.uid.substr( 0, 4 )
-        firebase.firestore().collection( 'games' )
-            .add( {
+        const gameHost = currentUser.uid
+        const gameHostName = currentUser.displayName ?? 'User ' + currentUser.uid.substr( 0, 4 )
+        const newGameId = uuidV4().substr( 0, 5 )
+        gamesDbRef
+            .doc( newGameId )
+            .set( {
                 game_host: gameHost,
                 game_host_name: gameHostName,
                 challenger: null,
@@ -106,7 +117,7 @@ function Lobby( props ) {
                 activePlayer: gameHost
             } )
             .then( ( game ) => {
-                props.history.push( '/games/' + game.id )
+                props.history.push( '/games/' + newGameId )
             } )
     }
     // TODO cleanup this giant block of jsx
