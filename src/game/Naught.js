@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export function Circle( props ) {
-    Circle.propTypes = {
+export function Naught( props ) {
+    Naught.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number
     }

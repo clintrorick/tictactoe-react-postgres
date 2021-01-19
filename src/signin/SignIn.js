@@ -4,7 +4,7 @@ import { auth } from 'firebaseui'
 import { React, useState, useEffect, useLayoutEffect, useRef } from 'react'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth'
 import './SignIn.css'
-import Header from '../header/Header'
+import LoggedInUser from '../header/LoggedInUser'
 import { Redirect } from 'react-router'
 const uiConfig = {
     // Popup signin flow rather than redirect flow.
@@ -44,12 +44,13 @@ function SignIn( props ) {
     if ( !isSignedIn ) {
         return (
             <div ref={mainDiv} className="firebaseui-root">
-                <Header/>
+                <LoggedInUser/>
                 <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
             </div>
         )
     } else {
-        return <Redirect to='/'></Redirect>
+        console.log( props.location )
+        return <Redirect to={props.location.state ? props.location.state.from : '/'}></Redirect>
     }
 }
 

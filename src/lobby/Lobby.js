@@ -6,9 +6,10 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import PropTypes from 'prop-types'
 import { React, useEffect, useState } from 'react'
-import Header from '../header/Header'
+import LoggedInUser from '../header/LoggedInUser'
 import './Lobby.css'
 import { CSSTransitionGroup } from 'react-transition-group' // ES6
+import Title from 'header/Title'
 
 dayjs.extend( relativeTime )
 function Lobby( props ) {
@@ -42,20 +43,22 @@ function Lobby( props ) {
     async function joinGame( game ) {
         const currentUser = firebase.auth().currentUser
         try {
-            await firebase.firestore().collection( 'games' )
-                .doc( game.id )
-                .set(
-                    {
-                        challenger: currentUser.uid,
-                        // anonymous users don't have display names
-                        challenger_name: currentUser.isAnonymous
+            if ( game.game_host !== currentUser.uid ) {
+                await firebase.firestore().collection( 'games' )
+                    .doc( game.id )
+                    .set(
+                        {
+                            challenger: currentUser.uid,
+                            // anonymous users don't have display names
+                            challenger_name: currentUser.isAnonymous
                         ? currentUser.uid.substr( 0, 4 )
                         : currentUser.displayName
-                    },
-                    {
-                        merge: true
-                    }
-                )
+                        },
+                        {
+                            merge: true
+                        }
+                    )
+            }
             props.history.push( '/games/' + game.id )
         } catch ( error ) {
             console.log( error )
@@ -99,12 +102,23 @@ function Lobby( props ) {
                 game_host: gameHost,
                 game_host_name: gameHostName,
                 challenger: null,
-                created_ts: firebase.firestore.FieldValue.serverTimestamp()
+                created_ts: firebase.firestore.FieldValue.serverTimestamp(),
+                activePlayer: gameHost
+            } )
+            .then( ( game ) => {
+                props.history.push( '/games/' + game.id )
             } )
     }
     // TODO cleanup this giant block of jsx
     return <div>
-        <Header/>
+        <div className="container">
+            <div className="row row-center" >
+                <Title/>
+            </div>
+            <div className="row row-center" >
+                <LoggedInUser/>
+            </div>
+        </div>
 
         <div className="container">
             <div className="row row-center" >
@@ -150,7 +164,7 @@ function Lobby( props ) {
                             ? <div className="row row-bottom" >
                                 <button className="button-cancel button-leave"
                                     onClick={() => { leaveGame( game ) }}>
-                                        Leave Game
+                                        Drop
                                 </button>
                             </div>
                             : <div className="row row-bottom"></div>}

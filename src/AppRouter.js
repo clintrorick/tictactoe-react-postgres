@@ -9,18 +9,28 @@ import 'firebase/auth'
 function AppRouter( props ) {
     return <Switch>
 
-        <Route exact path="/" render={ props =>
+        <Route exact path="/" render={ prps =>
             firebase.auth().currentUser == null
-                ? <Redirect to="/signin"></Redirect>
-                : <Lobby {...props} /> }/>
+                ? <Redirect to={
+                    {
+                        pathname: '/signin',
+                        state: { from: prps.location }
+                    }
+                }></Redirect>
+                : <Lobby {...prps} /> }/>
 
         <Route path="/games/:id"
-            render={ props =>
+            render={ prps =>
                 firebase.auth().currentUser == null
-                ? <Redirect to="/signin"></Redirect>
-                : <Game {...props} /> }/>
+                ? <Redirect to={
+                    {
+                        pathname: '/signin',
+                        state: { from: prps.location }
+                    }
+                }></Redirect>
+                : <Game {...prps} /> }/>
 
-        <Route path="/signin" render={ props => <SignIn {...props} /> }></Route>
+        <Route path="/signin" render={ prps => <SignIn {...prps} /> }></Route>
         {/* ^^^ necessary shenanigans for passing router params as props... */}
     </Switch>
 }

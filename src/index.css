@@ -65,6 +65,23 @@ button {
   border: 0.1rem solid #3477eb !important;
 }
 
+@font-face {
+  font-family: 'Monofett';
+  src: url(./fonts/Monofett-Regular.ttf) ;
+}
+
+.monofett-font {
+  font-family: 'Monofett';
+  font-size: 2.5rem;
+}
+
+/* Larger than mobile screen */
+@media (min-width: 40.0rem) { 
+  .title-font{
+    font-size: 4.6rem;
+  }
+ }
+
 
 
 

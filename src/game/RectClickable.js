@@ -20,7 +20,7 @@ export function RectClickable( props ) {
         width={ 200 - 8 }
         height={ 200 - 8 }
         style={rectStyle}
-        onClick={() => props.rectClicked( props.x, props.y, props.markType )} // use context for cross or circle
+        onClick={() => props.rectClicked( props.x, props.y, props.markType )} // use context for cross or naught
         onMouseEnter={() => toggleOpacity( '0.1' )}
         onMouseLeave={() => toggleOpacity( '0.0' )}>
 
