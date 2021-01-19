@@ -46,7 +46,7 @@ function Lobby( props ) {
         } else if ( game.challenger === currentUser.uid ) {
             gamesDbRef
                 .doc( game.id )
-                .update( { challenger: null, challenger_name: null } )
+                .update( 'challenger', null, 'challenger_name', null )
         }
     }
 
@@ -56,13 +56,11 @@ function Lobby( props ) {
                 await gamesDbRef
                     .doc( game.id )
                     .update(
-                        {
-                            challenger: currentUser.uid,
-                            // anonymous users don't have display names
-                            challenger_name: currentUser.isAnonymous
+                        'challenger', currentUser.uid,
+                        // anonymous users don't have display names
+                        'challenger_name', currentUser.isAnonymous
                             ? currentUser.uid.substr( 0, 4 )
                             : currentUser.displayName
-                        }
                     )
             }
             props.history.push( '/games/' + game.id )
