@@ -21,6 +21,9 @@ module.exports = {
             jsx: true
         }
     },
+    globals: {
+        cy: true
+    },
     settings: {
         react: {
             version: 'detect'

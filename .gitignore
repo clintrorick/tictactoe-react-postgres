@@ -32,3 +32,6 @@ yarn-error.log*
 *.log
 public/__
 public/__/firebase/init.json
+cypress/integration/examples/*
+
+.nyc_output/

@@ -5,10 +5,10 @@ import Game from './game/Game'
 import SignIn from 'signin/SignIn'
 import firebase from 'firebase/app'
 import 'firebase/auth'
+import SignOut from 'signin/SignOut'
 
 function AppRouter( props ) {
     return <Switch>
-
         <Route exact path="/" render={ prps =>
             firebase.auth().currentUser == null
                 ? <Redirect to={
@@ -31,6 +31,7 @@ function AppRouter( props ) {
                 : <Game {...prps} /> }/>
 
         <Route path="/signin" render={ prps => <SignIn {...prps} /> }></Route>
+        <Route path="/signout" render={prps => <SignOut {...prps}/>}></Route>
         {/* ^^^ necessary shenanigans for passing router params as props... */}
     </Switch>
 }

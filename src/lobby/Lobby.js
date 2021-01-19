@@ -131,7 +131,8 @@ function Lobby( props ) {
 
         <div className="container">
             <div className="row row-center" >
-                <button className="button-normal" onClick={ () => createGame() }>Host New Game</button>
+                <button className="button-normal" onClick={ () => createGame() }
+                    data-cy="host-new-game">Host New Game</button>
             </div>
         </div>
         <div className="container">

@@ -43,8 +43,28 @@ function Game( props ) {
         ] )
 
     useEffect( () => {
-        thisGameDocRef
-            .get().then( ( gameDoc ) => {
+        // thisGameDocRef
+        //     .get().then( ( gameDoc ) => {
+        //         const game = gameDoc.data()
+
+        //         updateHost( game.game_host )
+        //         updateChallenger( game.challenger )
+        //         updateActivePlayer( game.activePlayer )
+
+        //         if ( game.game_host === currentUser.uid ) {
+        //             // host is always naughts
+        //             updateActiveMarkType( 'naught' )
+        //         } else if ( game.challenger === currentUser.uid ) {
+        //             // challenger is always crosses
+        //             updateActiveMarkType( 'cross' )
+        //         } else if ( game.game_host !== null && game.challenger === null ) {
+        //             // you stumbled in here, you're the challenger now!
+        //             thisGameDocRef.update( { challenger: currentUser.uid } )
+        //         }
+        //     } )
+
+        const unsubGameUpdates = thisGameDocRef
+            .onSnapshot( ( gameDoc ) => {
                 const game = gameDoc.data()
 
                 updateHost( game.game_host )
@@ -61,11 +81,6 @@ function Game( props ) {
                     // you stumbled in here, you're the challenger now!
                     thisGameDocRef.update( { challenger: currentUser.uid } )
                 }
-            } )
-
-        const unsubGameUpdates = thisGameDocRef
-            .onSnapshot( ( docSnapshot ) => {
-                updateActivePlayer( docSnapshot.data().activePlayer ?? null )
             } )
 
         const unsubGamestateUpdates =
